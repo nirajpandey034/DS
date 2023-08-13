@@ -1,0 +1,36 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string> out;
+
+void stringSubsets(string str, int n, int index, string temp_str)
+{
+    if(n == index)
+    {
+        if(temp_str != "" && find(out.begin(), out.end(), temp_str) == out.end())
+        {
+            out.push_back(temp_str);
+        }
+        return;
+    }
+    
+    //include in the substring
+    temp_str += str[index];
+    stringSubsets(str, n, index+1, temp_str);
+    //don't include in the substring
+    temp_str = temp_str.substr(0, temp_str.size()-1);
+    stringSubsets(str, n, index+1, temp_str);
+}
+int main() {
+	string str = "abcd";
+	int size = str.size();
+	
+	string temp_str = "";
+	
+	stringSubsets(str, size, 0, temp_str);
+	
+	for(int i=0;i<out.size();i++)
+	    cout<<out[i]<<endl;
+	return 0;
+}
